@@ -1,5 +1,8 @@
 package com.ks.clarity.insight;
 
+import android.content.Context;
+import android.widget.TextView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -12,48 +15,62 @@ public class priming {
 	public static String vars;
 	public static String temporary = "";
 	public static boolean enable = true;
+	private static Context context;
 	
-	public static void main(String[] args) {
+	public static void main(String lines, Context conText, int linecount) {
 		// TODO 自動生成されたメソッド・スタブ
-		String lines = "";
+
+		context = conText;
 		int times = 0;
 		String line = "start";
-		while (line == "") {
+		String debug = "";
+		for (;times <= linecount-1;) {
 			line = digest(lines,times);
-			if (line != "") {
-				translation(line,times);
+			translation(line,times,conText);
+			if (!(line.equals(""))) {
 			}
+			debug = debug + line;
+			times++;
+
 		}
-		
-		
+
+
 		
 	}
 	
 	public static String digest(String lines,int times) {
 		//textviewから読み込んだソースコードを1行ずつに整理する
 		String line_times = "";
-		int timesNow = 0;
-		try {
-			String line = "";
-			BufferedReader br = new BufferedReader(new StringReader(lines));
-			while ((line = br.readLine()) != null) {
-				timesNow++;
-				if (timesNow == times) {
-					line_times = line.trim();
-				}
-			}			
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
+		String[] splitLines = lines.split("\n");
+		line_times = splitLines[times];
+
+		//int timesNow = 0;
+		//try {
+		//	String line = "";
+		//	BufferedReader br = new BufferedReader(new StringReader(lines));
+		//	while ((line = br.readLine()) != null) {
+		//		timesNow++;
+		//		if (timesNow == times) {
+		//			line_times = line.trim();
+		//		}
+		//	}
+		//}catch (IOException e) {
+		//	e.printStackTrace();
+		//}
+
+
 		return line_times;
 		
 	}
 	
-	public static void translation(String line,int times) {
+	public static void translation(String line,int times,Context conText) {
 		//ソースコードを解釈する
 		if (enable == true) {
+
 			if (line.startsWith("var")) {
 				var(line);
+
+
 			} else if (line.startsWith("if")) {
 				if_exe if_exe = new if_exe();
 				String[] returned = if_exe.execute(line,vars,times);
@@ -65,7 +82,7 @@ public class priming {
 				}
 			} else if (line.startsWith("display")) {
 				display_exe display_exe = new display_exe();
-				String[] returned = display_exe.execute(line, vars, times);
+				String[] returned = display_exe.execute(line, vars, times,conText);
 				vars = returned[0];
 			}
 		} else if (enable == false) {
@@ -119,29 +136,47 @@ public class priming {
 				//これ以前に登録された変数を参照して新規登録
 			}
 		}
-		String preassigning = ls + data[2] + "૰" + data[1] + "૰" + content;
+		String preassigning = "\n" + data[2] + "૰" + data[1] + "૰" + content;
 		vars = vars + preassigning;
 	}
 	
 	public static String searchvars(String role,String name) {
 		//変数の読み出し
 		String returnstring = "";
+		int times = 0;
+		String[] splitVars = vars.split("\n");
+
 		String[] assigned;
-		try {
-			BufferedReader br = new BufferedReader(new StringReader(vars));
-			String line = null;
-			while ((line= br.readLine()) != null) {
-				assigned = line.split("૰");
+		for (;times < 1000;) {
+			if (splitVars.length <= times) {
+				String var_this = splitVars[times];
+				assigned = var_this.split("૰");
 				if (assigned[0].matches(role)) {
 					if (assigned[1].matches(name)) {
 						returnstring = assigned[2];
+						times = 1000;
 					}
 				}
-				
-			}			
-		}catch (IOException e){
-			e.printStackTrace();
+				times++;
+			}
+
 		}
+
+		//try {
+		//	BufferedReader br = new BufferedReader(new StringReader(vars));
+		//	String line = null;
+		//	while ((line= br.readLine()) != null) {
+		//		assigned = line.split("૰");
+		//		if (assigned[0].matches(role)) {
+		//			if (assigned[1].matches(name)) {
+		//				returnstring = assigned[2];
+		//			}
+		//		}
+		//
+		//	}
+		//}catch (IOException e){
+		//	e.printStackTrace();
+		//}
 		return returnstring;
 		
 		

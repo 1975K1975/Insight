@@ -10,26 +10,26 @@ public class if_exe {
 
 	public String[] execute(String line,String vars, int times) {
 		String lines = null;
-		String[] returnString = null;
+		String[] returnString = new String[5];
 
-		priming priming = new priming();
-		int brackets_layer = 0;
-		int brackets_layer_max = 0;
-		int times_a = times;
-		while (brackets_layer == 0) {
-			final String digest = priming.digest(lines,times_a);
-			if (digest.contains("{")) {
-				brackets_layer++;
-				if (brackets_layer > brackets_layer_max) {
-					brackets_layer_max = brackets_layer;
-				}
-			} else if (digest.contains("}")) {
-				brackets_layer--;
-			}
-			times_a++;
-		}
+		//priming priming = new priming();
+		//int brackets_layer = 0;
+		//int brackets_layer_max = 0;
+		//int times_a = times;
+		//while (brackets_layer == 0) {
+		//	final String digest = priming.digest(lines,times_a);
+		//	if (digest.contains("{")) {
+		//		brackets_layer++;
+		//		if (brackets_layer > brackets_layer_max) {
+		//			brackets_layer_max = brackets_layer;
+		//		}
+		//	} else if (digest.contains("}")) {
+		//		brackets_layer--;
+		//	}
+		//	times_a++;
+		//}
 		int termNameStart = line.indexOf("(") + 1;
-		int termNameEnd = line.indexOf("=") - 2;
+		int termNameEnd = line.indexOf("=") -2;
 		String termName = line.substring(termNameStart,termNameEnd);
 		String termVar = searchvars(":number",termName, vars);
 		String termVarType = ":number";
@@ -68,21 +68,40 @@ public class if_exe {
 	public static String searchvars(String role,String name,String vars) {
 		//変数の読み出し
 		String returnstring = "";
+		int times = 0;
+		String[] splitVars = vars.split("\n");
+
 		String[] assigned;
-		try {
-			BufferedReader br = new BufferedReader(new StringReader(vars));
-			String line = null;
-			while ((line= br.readLine()) != null) {
-				assigned = line.split("૰");
+		for (;times < 1000;) {
+			if (splitVars.length <= times) {
+				String var_this = splitVars[times];
+				assigned = var_this.split("૰");
 				if (assigned[0].matches(role)) {
 					if (assigned[1].matches(name)) {
 						returnstring = assigned[2];
+						times = 1000;
 					}
 				}
+				times++;
 			}
-		}catch (IOException e){
-			e.printStackTrace();
+
 		}
+
+		//try {
+		//	BufferedReader br = new BufferedReader(new StringReader(vars));
+		//	String line = null;
+		//	while ((line= br.readLine()) != null) {
+		//		assigned = line.split("૰");
+		//		if (assigned[0].matches(role)) {
+		//			if (assigned[1].matches(name)) {
+		//				returnstring = assigned[2];
+		//			}
+		//		}
+		//
+		//	}
+		//}catch (IOException e){
+		//	e.printStackTrace();
+		//}
 		return returnstring;
 
 
@@ -126,7 +145,7 @@ public class if_exe {
 				//これ以前に登録された変数を参照して新規登録
 			}
 		}
-		String preassigning = ls + data[2] + "૰" + data[1] + "૰" + content;
+		String preassigning = "\n" + data[2] + "૰" + data[1] + "૰" + content;
 		vars = vars + preassigning;
 		return vars;
 	}

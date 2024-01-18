@@ -1,6 +1,8 @@
 package com.ks.clarity.insight;
 
 import android.widget.TextView;
+import android.content.Context;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,12 +13,14 @@ import android.os.Bundle;
 public class display_exe {
 	
 	public static String ls = System.getProperty("line.separetor");
+	private Context context;
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
-	public String[] execute(String line,String vars, int times) {
+	public String[] execute(String line,String vars, int times,Context conText) {
+		context = conText;
 
 		int termStart = line.indexOf("(") + 1;
 		int termEnd = line.indexOf(")") - 1;
@@ -38,10 +42,11 @@ public class display_exe {
 		}
 		out = out + ls;
 
-		MainActivity ma = new MainActivity();
-		ma.printMessage(out);
 
-		String[] returnString = null;
+		TextView textView = (TextView) ((com.ks.clarity.insight.MainActivity)context).findViewById(R.id.message);
+		textView.setText(out);
+
+		String[] returnString = new String[5];
 		returnString[0] = vars;
 
 		return returnString;
@@ -52,21 +57,40 @@ public class display_exe {
 	public static String searchvars(String role,String name,String vars) {
 		//変数の読み出し
 		String returnstring = "";
+		int times = 0;
+		String[] splitVars = vars.split("\n");
+
 		String[] assigned;
-		try {
-			BufferedReader br = new BufferedReader(new StringReader(vars));
-			String line = null;
-			while ((line= br.readLine()) != null) {
-				assigned = line.split("૰");
+		for (;times < 1000;) {
+			if (splitVars.length <= times) {
+				String var_this = splitVars[times];
+				assigned = var_this.split("૰");
 				if (assigned[0].matches(role)) {
 					if (assigned[1].matches(name)) {
 						returnstring = assigned[2];
+						times = 1000;
 					}
 				}
+				times++;
 			}
-		}catch (IOException e){
-			e.printStackTrace();
+
 		}
+
+		//try {
+		//	BufferedReader br = new BufferedReader(new StringReader(vars));
+		//	String line = null;
+		//	while ((line= br.readLine()) != null) {
+		//		assigned = line.split("૰");
+		//		if (assigned[0].matches(role)) {
+		//			if (assigned[1].matches(name)) {
+		//				returnstring = assigned[2];
+		//			}
+		//		}
+		//
+		//	}
+		//}catch (IOException e){
+		//	e.printStackTrace();
+		//}
 		return returnstring;
 
 
@@ -110,7 +134,7 @@ public class display_exe {
 				//これ以前に登録された変数を参照して新規登録
 			}
 		}
-		String preassigning = ls + data[2] + "૰" + data[1] + "૰" + content;
+		String preassigning = "\n" + data[2] + "૰" + data[1] + "૰" + content;
 		vars = vars + preassigning;
 		return vars;
 	}
