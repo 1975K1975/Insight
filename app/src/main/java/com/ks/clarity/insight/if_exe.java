@@ -9,7 +9,7 @@ public class if_exe {
 	public static String ls = System.getProperty("line.separetor");
 
 	public String[] execute(String line,String vars, int times) {
-		String lines = null;
+		//String lines = null;
 		String[] returnString = new String[5];
 
 		//priming priming = new priming();
@@ -28,8 +28,8 @@ public class if_exe {
 		//	}
 		//	times_a++;
 		//}
-		int termNameStart = line.indexOf("(") + 1;
-		int termNameEnd = line.indexOf("=") -2;
+		int termNameStart = line.indexOf("(") +1;
+		int termNameEnd = line.indexOf("=") -1;
 		String termName = line.substring(termNameStart,termNameEnd);
 		String termVar = searchvars(":number",termName, vars);
 		String termVarType = ":number";
@@ -43,7 +43,7 @@ public class if_exe {
 		}
 
 		int termStart = line.indexOf("=") + 3;
-		int termEnd = line.indexOf(")") - 1;
+		int termEnd = line.indexOf(")") ;
 		String term = line.substring(termStart,termEnd);
 		if (termVarType == ":text") {
 			term = term.substring(1,term.length() - 1);
@@ -72,18 +72,17 @@ public class if_exe {
 		String[] splitVars = vars.split("\n");
 
 		String[] assigned;
-		for (;times < 1000;) {
-			if (splitVars.length <= times) {
-				String var_this = splitVars[times];
-				assigned = var_this.split("૰");
-				if (assigned[0].matches(role)) {
-					if (assigned[1].matches(name)) {
-						returnstring = assigned[2];
-						times = 1000;
-					}
+		for (;times < splitVars.length;) {
+			String var_this = splitVars[times];
+			assigned = var_this.split("૰");
+			if (assigned[0].matches(role)) {
+				if (assigned[1].matches(name)) {
+					returnstring = assigned[2];
+					times = splitVars.length + 1;
 				}
-				times++;
 			}
+			times++;
+
 
 		}
 

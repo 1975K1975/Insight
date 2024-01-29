@@ -22,14 +22,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText code = (EditText) findViewById(R.id.code);
+                int linecount = code.getLineCount();
                 Switch Englishenable = (Switch) findViewById(R.id.englishenable);
+                TextView textView = (TextView) ((com.ks.clarity.insight.MainActivity)context).findViewById(R.id.message);
+                textView.setText("");
                 priming priming = new priming();
                 if(Englishenable.isChecked() == false) {
                     je je = new je();
                     String translatedLines = je.jeTranslate(code.getText().toString());
-                    priming.main(translatedLines,context,code.getLineCount());
+                    priming.main(translatedLines,context,linecount);
                 }else if(Englishenable.isChecked() == true) {
-                    priming.main(code.getText().toString(),context,code.getLineCount());
+                    priming.main(code.getText().toString(),context,linecount);
                 }
             }
         });
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 je je = new je();
                 String translatedLines = je.jeTranslate(code.getText().toString());
                 code.setText(translatedLines);
+                Switch Englishenable = (Switch) findViewById(R.id.englishenable);
+                Englishenable.setEnabled(true);
 
             }
         });

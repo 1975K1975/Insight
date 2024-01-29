@@ -23,11 +23,11 @@ public class display_exe {
 		context = conText;
 
 		int termStart = line.indexOf("(") + 1;
-		int termEnd = line.indexOf(")") - 1;
+		int termEnd = line.indexOf(")") ;
 		String term = line.substring(termStart,termEnd);
 		String out = "";
 		if (term.startsWith("「")){
-			out = term.substring(1,term.length());
+			out = term.substring(1,term.length() -1);
 		}else {
 
 			String termVar = searchvars(":number",term, vars);
@@ -40,10 +40,12 @@ public class display_exe {
 			out = termVar;
 
 		}
-		out = out + ls;
+	//	out = out + ls;
+		out = out + "\n";
 
 
 		TextView textView = (TextView) ((com.ks.clarity.insight.MainActivity)context).findViewById(R.id.message);
+		out = textView.toString() + out;
 		textView.setText(out);
 
 		String[] returnString = new String[5];
@@ -54,6 +56,7 @@ public class display_exe {
 
 
 
+
 	public static String searchvars(String role,String name,String vars) {
 		//変数の読み出し
 		String returnstring = "";
@@ -61,18 +64,17 @@ public class display_exe {
 		String[] splitVars = vars.split("\n");
 
 		String[] assigned;
-		for (;times < 1000;) {
-			if (splitVars.length <= times) {
-				String var_this = splitVars[times];
-				assigned = var_this.split("૰");
-				if (assigned[0].matches(role)) {
-					if (assigned[1].matches(name)) {
-						returnstring = assigned[2];
-						times = 1000;
-					}
+		for (;times < splitVars.length;) {
+			String var_this = splitVars[times];
+			assigned = var_this.split("૰");
+			if (assigned[0].matches(role)) {
+				if (assigned[1].matches(name)) {
+					returnstring = assigned[2];
+					times = splitVars.length + 1;
 				}
-				times++;
 			}
+			times++;
+
 
 		}
 
