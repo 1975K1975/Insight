@@ -35,7 +35,7 @@
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="日→英 変換" />
+                android:text="日↔英 変換" />
 
             <Button
                 android:id="@+id/execute"

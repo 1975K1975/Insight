@@ -29,10 +29,15 @@ public class MainActivity extends AppCompatActivity {
                 priming priming = new priming();
                 if(Englishenable.isChecked() == false) {
                     je je = new je();
-                    String translatedLines = je.jeTranslate(code.getText().toString());
+                    String translatedLines = je.spaceTranslate(code.getText().toString());
+                    code.setText(translatedLines);
+                    translatedLines = je.jeTranslate(translatedLines);
                     priming.main(translatedLines,context,linecount);
                 }else if(Englishenable.isChecked() == true) {
-                    priming.main(code.getText().toString(),context,linecount);
+                    je je = new je();
+                    String translatedLines = je.spaceTranslate(code.getText().toString());
+                    code.setText(translatedLines);
+                    priming.main(translatedLines,context,linecount);
                 }
             }
         });

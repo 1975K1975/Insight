@@ -11,4 +11,8 @@ public class je {
         lines = lines.replace("　"," ");
         return lines;
     }
+    public String spaceTranslate (String lines){
+        lines = lines.replace("　"," ");
+        return lines;
+    }
 }
