@@ -40,12 +40,21 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.translate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText code = (EditText) findViewById(R.id.code);
-                je je = new je();
-                String translatedLines = je.jeTranslate(code.getText().toString());
-                code.setText(translatedLines);
                 Switch Englishenable = (Switch) findViewById(R.id.englishenable);
-                Englishenable.setChecked(true);
+                if (Englishenable.isChecked() == false) {
+                    EditText code = (EditText) findViewById(R.id.code);
+                    je je = new je();
+                    String translatedLines = je.jeTranslate(code.getText().toString());
+                    code.setText(translatedLines);
+                    Englishenable.setChecked(true);
+                }else if (Englishenable.isChecked() == true) {
+                    EditText code = (EditText) findViewById(R.id.code);
+                    ej ej = new ej();
+                    String translatedLines = ej.ejTranslate(code.getText().toString());
+                    code.setText(translatedLines);
+                    Englishenable.setChecked(false);
+                }
+
 
             }
         });
