@@ -16,7 +16,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/code"
             android:layout_width="match_parent"
-            android:layout_height="281dp" />
+            android:layout_height="281dp"
+            android:gravity="top|left" />
 
         <TextView
             android:id="@+id/message"

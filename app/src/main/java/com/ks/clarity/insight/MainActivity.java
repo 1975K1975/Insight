@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 String translatedLines = je.jeTranslate(code.getText().toString());
                 code.setText(translatedLines);
                 Switch Englishenable = (Switch) findViewById(R.id.englishenable);
-                Englishenable.setEnabled(true);
+                Englishenable.setChecked(true);
 
             }
         });

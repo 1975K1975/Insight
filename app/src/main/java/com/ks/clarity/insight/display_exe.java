@@ -45,7 +45,7 @@ public class display_exe {
 
 
 		TextView textView = (TextView) ((com.ks.clarity.insight.MainActivity)context).findViewById(R.id.message);
-		out = textView.toString() + out;
+		out = textView.getText().toString() + out;
 		textView.setText(out);
 
 		String[] returnString = new String[5];
