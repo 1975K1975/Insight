@@ -9,25 +9,8 @@ public class if_exe {
 	public static String ls = System.getProperty("line.separetor");
 
 	public String[] execute(String line,String vars, int times) {
-		//String lines = null;
 		String[] returnString = new String[5];
 
-		//priming priming = new priming();
-		//int brackets_layer = 0;
-		//int brackets_layer_max = 0;
-		//int times_a = times;
-		//while (brackets_layer == 0) {
-		//	final String digest = priming.digest(lines,times_a);
-		//	if (digest.contains("{")) {
-		//		brackets_layer++;
-		//		if (brackets_layer > brackets_layer_max) {
-		//			brackets_layer_max = brackets_layer;
-		//		}
-		//	} else if (digest.contains("}")) {
-		//		brackets_layer--;
-		//	}
-		//	times_a++;
-		//}
 		int termNameStart = line.indexOf("(") +1;
 		int termNameEnd = line.indexOf("=") -1;
 		String termName = line.substring(termNameStart,termNameEnd);
@@ -86,21 +69,6 @@ public class if_exe {
 
 		}
 
-		//try {
-		//	BufferedReader br = new BufferedReader(new StringReader(vars));
-		//	String line = null;
-		//	while ((line= br.readLine()) != null) {
-		//		assigned = line.split("૰");
-		//		if (assigned[0].matches(role)) {
-		//			if (assigned[1].matches(name)) {
-		//				returnstring = assigned[2];
-		//			}
-		//		}
-		//
-		//	}
-		//}catch (IOException e){
-		//	e.printStackTrace();
-		//}
 		return returnstring;
 
 

@@ -40,7 +40,6 @@ public class display_exe {
 			out = termVar;
 
 		}
-	//	out = out + ls;
 		out = out + "\n";
 
 
@@ -78,21 +77,6 @@ public class display_exe {
 
 		}
 
-		//try {
-		//	BufferedReader br = new BufferedReader(new StringReader(vars));
-		//	String line = null;
-		//	while ((line= br.readLine()) != null) {
-		//		assigned = line.split("૰");
-		//		if (assigned[0].matches(role)) {
-		//			if (assigned[1].matches(name)) {
-		//				returnstring = assigned[2];
-		//			}
-		//		}
-		//
-		//	}
-		//}catch (IOException e){
-		//	e.printStackTrace();
-		//}
 		return returnstring;
 
 

@@ -45,20 +45,6 @@ public class priming {
 		String[] splitLines = lines.split("\n");
 		line_times = splitLines[times];
 
-		//int timesNow = 0;
-		//try {
-		//	String line = "";
-		//	BufferedReader br = new BufferedReader(new StringReader(lines));
-		//	while ((line = br.readLine()) != null) {
-		//		timesNow++;
-		//		if (timesNow == times) {
-		//			line_times = line.trim();
-		//		}
-		//	}
-		//}catch (IOException e) {
-		//	e.printStackTrace();
-		//}
-
 
 		return line_times;
 		
@@ -132,21 +118,6 @@ public class priming {
 
 		}
 
-		//try {
-		//	BufferedReader br = new BufferedReader(new StringReader(vars));
-		//	String line = null;
-		//	while ((line= br.readLine()) != null) {
-		//		assigned = line.split("૰");
-		//		if (assigned[0].matches(role)) {
-		//			if (assigned[1].matches(name)) {
-		//				returnstring = assigned[2];
-		//			}
-		//		}
-		//
-		//	}
-		//}catch (IOException e){
-		//	e.printStackTrace();
-		//}
 		return returnstring;
 
 
